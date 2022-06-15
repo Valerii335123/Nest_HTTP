@@ -3,7 +3,7 @@ import { CreateListDto } from './dto/create-list.dto';
 import { UpdateListDto } from './dto/update-list.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { List } from './entities/list.entity';
-import { Repository } from 'typeorm';
+import { Like, Repository, TreeRepository } from 'typeorm';
 import ListNotFoundException from './exceptions/listNotFound.exception';
 import SearchListDto from './dto/search-list.dto';
 
@@ -12,6 +12,9 @@ export class ListService {
   constructor(
     @InjectRepository(List)
     private listRepository: Repository<List>,
+    //todo repository for work with model like tree
+    @InjectRepository(List)
+    private listTreeRepository: TreeRepository<List>,
   ) {}
 
   async create(createListDto: CreateListDto): Promise<List> {
@@ -20,8 +23,16 @@ export class ListService {
     return newList;
   }
 
-  async findAll() {
-    return 'sdfs';
+  async search(searchListDto: SearchListDto) {
+    const lists = await this.listRepository.find({
+      where: {
+        title: Like(`%${searchListDto.title ?? ''}%`),
+        description: Like(`%${searchListDto.description ?? ''}%`),
+        priority: searchListDto.priority,
+      },
+    });
+
+    return lists;
   }
 
   async findOne(id: number): Promise<List> {

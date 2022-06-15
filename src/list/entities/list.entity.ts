@@ -7,6 +7,7 @@ import {
   DeleteDateColumn,
   OneToOne,
   JoinColumn,
+  TreeChildren,
 } from 'typeorm';
 
 @Entity()
@@ -38,4 +39,7 @@ export class List {
   @OneToOne(() => List)
   @JoinColumn()
   parent_: List;
+
+  @TreeChildren()
+  children: List[];
 }

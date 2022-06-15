@@ -5,24 +5,25 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
-} from '@nestjs/common';
+  Delete, Query
+} from "@nestjs/common";
 import { ListService } from './list.service';
 import { CreateListDto } from './dto/create-list.dto';
 import { UpdateListDto } from './dto/update-list.dto';
+import SearchListDto from './dto/search-list.dto';
 
 @Controller('list')
 export class ListController {
   constructor(private readonly listService: ListService) {}
 
+  @Get()
+  search(@Query() searchListDto: SearchListDto) {
+    return this.listService.search(searchListDto);
+  }
+
   @Post()
   create(@Body() createListDto: CreateListDto) {
     return this.listService.create(createListDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.listService.findAll();
   }
 
   @Get(':id')

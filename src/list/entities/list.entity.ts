@@ -8,7 +8,9 @@ import {
   OneToOne,
   JoinColumn,
   TreeChildren,
+  ManyToOne,
 } from 'typeorm';
+import { User } from './../../user/entities/user.entity';
 
 @Entity()
 export class List {
@@ -39,6 +41,10 @@ export class List {
   @OneToOne(() => List)
   @JoinColumn()
   parent_: List;
+
+  @ManyToOne((type) => User, (user) => user.id)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @TreeChildren()
   children: List[];

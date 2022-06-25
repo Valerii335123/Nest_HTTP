@@ -19,11 +19,14 @@ export class ParentListExistValidator implements ValidatorConstraintInterface {
   ) {}
 
   async validate(value: number) {
+    if (!value) return true;
+
     const model = await this.listRepository.findOne({
       where: {
         id: value,
       },
     });
+
     if (!model) return false;
     return true;
   }

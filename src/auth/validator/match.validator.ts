@@ -27,7 +27,6 @@ export class MatchConstraint implements ValidatorConstraintInterface {
   }
 
   defaultMessage(args: ValidationArguments) {
-    console.log(args);
     return `Field doesn\`t match to field ${args.constraints[0]}`;
   }
 }

@@ -20,6 +20,7 @@ export class ListService {
 
   async create(createListDto: CreateListDto, user: User): Promise<List> {
     const newList = await this.listRepository.create(createListDto);
+    newList.parent = createListDto.parent_id;
     newList.user = user;
     await this.listRepository.save(newList);
     return newList;
@@ -39,7 +40,6 @@ export class ListService {
   }
 
   async findOne(id: number, user?: User): Promise<List> {
-    console.log(user);
     const list = await this.listRepository.findOne({
       where: {
         id: id,

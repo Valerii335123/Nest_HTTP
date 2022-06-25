@@ -7,7 +7,6 @@ import {
   DeleteDateColumn,
   OneToOne,
   JoinColumn,
-  TreeChildren,
   ManyToOne,
 } from 'typeorm';
 import { User } from './../../user/entities/user.entity';
@@ -39,13 +38,10 @@ export class List {
   closed_at: Date;
 
   @OneToOne(() => List)
-  @JoinColumn()
-  parent_: List;
+  @JoinColumn({ name: 'parent_id' })
+  parent: List;
 
   @ManyToOne((type) => User, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
   user: User;
-
-  @TreeChildren()
-  children: List[];
 }

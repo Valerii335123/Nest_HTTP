@@ -34,4 +34,8 @@ export class User {
 
   @OneToMany((type) => List, (list) => list.id)
   lists: List[];
+
+  public constructor(init?: Partial<User>) {
+    Object.assign(this, init);
+  }
 }

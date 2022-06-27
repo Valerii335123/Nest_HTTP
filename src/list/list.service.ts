@@ -3,7 +3,7 @@ import { CreateListDto } from './dto/create-list.dto';
 import { UpdateListDto } from './dto/update-list.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { List } from './entities/list.entity';
-import { Like, Repository, TreeRepository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import ListNotFoundException from './exceptions/listNotFound.exception';
 import SearchListDto from './dto/search-list.dto';
 import { User } from '../user/entities/user.entity';
@@ -13,9 +13,6 @@ export class ListService {
   constructor(
     @InjectRepository(List)
     private listRepository: Repository<List>,
-    //todo repository for work with model like tree
-    @InjectRepository(List)
-    private listTreeRepository: TreeRepository<List>,
   ) {}
 
   async create(createListDto: CreateListDto, user: User): Promise<List> {

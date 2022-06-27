@@ -8,6 +8,7 @@ import {
   OneToOne,
   JoinColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { User } from './../../user/entities/user.entity';
 
@@ -37,11 +38,15 @@ export class List {
   @Column({ type: 'datetime', nullable: true })
   closed_at: Date;
 
-  @OneToOne(() => List)
+  @ManyToOne(() => List)
   @JoinColumn({ name: 'parent_id' })
   parent: List;
 
   @ManyToOne((type) => User, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  public constructor(init?: Partial<List>) {
+    Object.assign(this, init);
+  }
 }

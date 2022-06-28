@@ -17,6 +17,10 @@ export class CreateListDto {
 
   @ParentListExists()
   parent_id: List;
+
+  public constructor(init?: Partial<CreateListDto>) {
+    Object.assign(this, init);
+  }
 }
 
 export default CreateListDto;

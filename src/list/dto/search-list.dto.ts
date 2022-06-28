@@ -1,6 +1,6 @@
 import { IsString, IsNotEmpty, IsInt, IsOptional } from 'class-validator';
 
-export class CreateListDto {
+export class SearchListDto {
   @IsOptional()
   @IsString()
   title: string;
@@ -12,6 +12,10 @@ export class CreateListDto {
   @IsOptional()
   @IsInt()
   priority: number;
+
+  public constructor(init?: Partial<SearchListDto>) {
+    Object.assign(this, init);
+  }
 }
 
-export default CreateListDto;
+export default SearchListDto;

@@ -36,7 +36,7 @@ export class ListService {
     return lists;
   }
 
-  async findOne(id: number, user?: User): Promise<List> {
+  async findOne(id: number, user?: User): Promise<List | []> {
     const list = await this.listRepository.findOne({
       where: {
         id: id,
@@ -46,7 +46,7 @@ export class ListService {
     if (list) {
       return list;
     }
-    throw new ListNotFoundException(id);
+    return [];
   }
 
   async update(id: number, updateListDto: UpdateListDto, user: User) {

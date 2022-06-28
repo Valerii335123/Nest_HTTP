@@ -14,4 +14,11 @@ export class UpdateListDto extends PartialType(CreateListDto) {
   @IsOptional()
   @IsInt()
   priority: number;
+
+  public constructor(init?: Partial<UpdateListDto>) {
+    super();
+    Object.assign(this, init);
+  }
 }
+
+export default UpdateListDto;
